@@ -4,14 +4,20 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
-    <ion-item *ngFor="let feed of feeds" (click)="itemSelected(feed.data.url)">
+    <button ion-item *ngFor="let feed of feeds" (click)="itemSelected(feed.data.url)">
       <ion-thumbnail item-right>
-        <img [src]="feed.data.thumbnail">
+        <img [src]=" feed.data.thumbnail ">
       </ion-thumbnail >
-      <h2>{{feed.data.title}}</h2>
-      <p>{{feed.data.domain}}</p>
-    </ion-item>
+      <h2>{{ feed.data.title }}</h2>
+      <p>{{ feed.data.domain }}</p>
+    </button>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingText="Carregando mais...">
+   </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
