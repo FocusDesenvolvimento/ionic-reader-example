@@ -1,14 +1,37 @@
+<!-- <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet"> -->
+
 <ion-header>
   <ion-navbar>
-    <ion-title> Meu Leitor de Feeds </ion-title>
+    <ion-title>Leitor Reddit</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="showFilters()">
+            <ion-icon name="ios-list-box-outline" 
+            [style.color]=" (hasFilter) ? 'blue' : 'inherit' "></ion-icon>
+        </button>
+     </ion-buttons> 
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-searchbar
+  [(ngModel)]="searchTerm"
+  [formControl]="searchTermControl" 
+  [showCancelButton]=true
+  (ionInput)="filterItems()" 
+  placeholder="Digite Aqui..." >
+  ></ion-searchbar>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+         pullingText="Arraste para baixo para atualizar"
+         refreshingSpinner="circles"
+         refreshingText="Procurando novas notícias...">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <button ion-item *ngFor="let feed of feeds" (click)="itemSelected(feed.data.url)">
       <ion-thumbnail item-right>
-        <img [src]=" feed.data.thumbnail ">
+        <img [src]="feed.data.thumbnail">
       </ion-thumbnail >
       <h2>{{ feed.data.title }}</h2>
       <p>{{ feed.data.domain }}</p>

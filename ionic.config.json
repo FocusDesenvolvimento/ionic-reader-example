@@ -1,6 +1,6 @@
 {
   "name": "MyReader",
-  "app_id": "",
+  "app_id": "MyReader",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
